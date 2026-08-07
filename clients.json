@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Statkraft",
+    "logo": "assets/clients/statkraft.png",
+    "website": "https://www.statkraft.com/"
+  },
+  {
+    "name": "Virgo Group",
+    "logo": "assets/clients/virgolam.webp",
+    "website": "https://www.virgolam.com/"
+  },
+  {
+    "name": "Great Value Realty",
+    "logo": "assets/clients/great-value-realty.webp",
+    "website": "https://greatvaluerealty.com/"
+  }
+]
