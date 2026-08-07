@@ -59,42 +59,53 @@ html, body {
   align-items: center;
   justify-content: center;
   gap: 6vh;
-  background: radial-gradient(120% 100% at 50% 0%, var(--haus-mitti) 0%, var(--haus-mitti-deep) 55%, #16030c 100%);
+  background: radial-gradient(140% 110% at 50% 0%, var(--haus-mitti) 0%, var(--haus-mitti-deep) 55%, #16030c 100%);
+  background-size: 160% 160%;
+  animation: pan-bg 36s ease-in-out infinite;
   overflow: hidden;
 }
+@keyframes pan-bg {
+  0%, 100% { background-position: 50% 0%; }
+  50% { background-position: 30% 40%; }
+}
 
-/* Ambient drifting glows -- keeps the screen visibly alive at idle */
+/* Ambient drifting glows -- the actual "background keeps moving" effect */
 .glow {
   position: absolute;
   border-radius: 50%;
   filter: blur(90px);
-  opacity: 0.35;
+  opacity: 0.38;
   pointer-events: none;
   will-change: transform;
 }
 .glow--one {
-  width: 46vw;
-  height: 46vw;
+  width: 50vw;
+  height: 50vw;
   background: var(--haus-indigo);
-  top: -12vw;
-  left: -10vw;
-  animation: drift-one 26s ease-in-out infinite;
+  top: -14vw;
+  left: -16vw;
+  animation: drift-one 34s ease-in-out infinite;
 }
 .glow--two {
-  width: 36vw;
-  height: 36vw;
+  width: 40vw;
+  height: 40vw;
   background: var(--haus-indigo);
-  bottom: -10vw;
-  right: -8vw;
-  animation: drift-two 22s ease-in-out infinite;
+  bottom: -12vw;
+  right: -14vw;
+  animation: drift-two 29s ease-in-out infinite;
 }
 @keyframes drift-one {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(4vw, 5vh) scale(1.12); }
+  0%   { transform: translate(0, 0) scale(1); }
+  25%  { transform: translate(22vw, 30vh) scale(1.15); }
+  50%  { transform: translate(10vw, 55vh) scale(0.92); }
+  75%  { transform: translate(28vw, 15vh) scale(1.08); }
+  100% { transform: translate(0, 0) scale(1); }
 }
 @keyframes drift-two {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-3vw, -4vh) scale(1.08); }
+  0%   { transform: translate(0, 0) scale(1); }
+  30%  { transform: translate(-20vw, -25vh) scale(1.1); }
+  60%  { transform: translate(-8vw, -50vh) scale(0.95); }
+  100% { transform: translate(0, 0) scale(1); }
 }
 
 .brand {
@@ -121,6 +132,10 @@ html, body {
   align-items: center;
   justify-content: center;
   gap: 4.5vh;
+  transition: opacity 0.7s ease;
+}
+.clients.is-hidden {
+  opacity: 0;
 }
 
 .client-card {
@@ -128,11 +143,10 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2.4vh;
-  width: min(70vw, 620px);
-  padding: 5vh 4vw;
+  width: min(54vw, 460px);
+  padding: 3.6vh 3vw;
   background: var(--haus-white);
-  border-radius: 22px;
+  border-radius: 18px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
   opacity: 0;
   transform: translateY(28px);
@@ -142,7 +156,7 @@ html, body {
 
 .client-card__logo-wrap {
   width: 100%;
-  height: 120px;
+  height: 88px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -152,11 +166,12 @@ html, body {
   max-height: 100%;
   object-fit: contain;
 }
-.client-card__name {
+/* Fallback for a client with no logo file yet -- name doubles as the wordmark */
+.client-card__name-fallback {
   margin: 0;
   font-family: "Bricolage Grotesque", sans-serif;
-  font-weight: 600;
-  font-size: clamp(16px, 1.5vw, 22px);
+  font-weight: 700;
+  font-size: clamp(24px, 4vw, 40px);
   color: var(--haus-mitti);
   text-align: center;
 }
