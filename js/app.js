@@ -36,6 +36,45 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+// Warp background: ported from magicui's WarpBackground (React) to vanilla JS.
+// Each of the 4 grid walls gets a handful of beams streaking toward the viewer,
+// recolored to the Haus+ indigo brand color instead of the original's random hues.
+const WARP_BEAM_SIZE = 7; // must match --warp-cell in style.css, as a percentage
+const WARP_BEAMS_PER_SIDE = 4;
+const WARP_BEAM_DURATION_RANGE = [3, 6]; // seconds
+const WARP_BEAM_DELAY_RANGE = [0, 4]; // seconds
+const WARP_BEAM_COLOR = "130, 180, 255"; // Haus Indigo, as an rgb() triple
+
+function randomBetween([min, max]) {
+  return Math.random() * (max - min) + min;
+}
+
+function buildWarpBeams() {
+  const cellsPerSide = Math.floor(100 / WARP_BEAM_SIZE);
+  const step = cellsPerSide / WARP_BEAMS_PER_SIDE;
+
+  document.querySelectorAll(".warp__wall").forEach((wall) => {
+    for (let i = 0; i < WARP_BEAMS_PER_SIDE; i++) {
+      const x = Math.floor(i * step) * WARP_BEAM_SIZE;
+      const opacity = randomBetween([0.5, 1]);
+      const aspectRatio = Math.floor(Math.random() * 10) + 1;
+
+      const beam = document.createElement("div");
+      beam.className = "warp__beam";
+      beam.style.setProperty("--x", `${x}%`);
+      beam.style.setProperty("--width", `${WARP_BEAM_SIZE}%`);
+      beam.style.setProperty("--ar", aspectRatio);
+      beam.style.setProperty("--duration", `${randomBetween(WARP_BEAM_DURATION_RANGE)}s`);
+      beam.style.setProperty("--delay", `${randomBetween(WARP_BEAM_DELAY_RANGE)}s`);
+      beam.style.setProperty(
+        "--beam-gradient",
+        `linear-gradient(rgba(${WARP_BEAM_COLOR}, ${opacity}), transparent)`
+      );
+      wall.appendChild(beam);
+    }
+  });
+}
+
 async function renderClients() {
   const container = document.getElementById("clients");
   const res = await fetch(CLIENTS_URL, { cache: "no-store" });
@@ -52,6 +91,7 @@ async function renderClients() {
   }, SHUFFLE_INTERVAL_MS);
 }
 
+buildWarpBeams();
 renderClients();
 
 setTimeout(() => location.reload(), RELOAD_INTERVAL_MS);

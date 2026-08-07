@@ -59,53 +59,82 @@ html, body {
   align-items: center;
   justify-content: center;
   gap: 6vh;
-  background: radial-gradient(140% 110% at 50% 0%, var(--haus-mitti) 0%, var(--haus-mitti-deep) 55%, #16030c 100%);
-  background-size: 160% 160%;
-  animation: pan-bg 36s ease-in-out infinite;
+  background: var(--haus-mitti-deep);
   overflow: hidden;
 }
-@keyframes pan-bg {
-  0%, 100% { background-position: 50% 0%; }
-  50% { background-position: 30% 40%; }
+
+/* Warp background: a perspective "tunnel" of 4 grid walls with beams of
+   light streaking toward the viewer, recolored to the Haus+ brand instead
+   of the original component's random rainbow hues. Ported from magicui's
+   WarpBackground (React) to vanilla CSS/JS since this site has no build step. */
+.warp {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  container-type: size;
+  perspective: var(--warp-perspective, 380px);
+  transform-style: preserve-3d;
+  --warp-grid-color: rgba(130, 180, 255, 0.28);
+  --warp-cell: 7%;
 }
 
-/* Ambient drifting glows -- the actual "background keeps moving" effect */
-.glow {
+.warp__wall {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(90px);
-  opacity: 0.38;
-  pointer-events: none;
-  will-change: transform;
+  transform-style: preserve-3d;
+  background-image:
+    linear-gradient(var(--warp-grid-color) 0 1px, transparent 1px var(--warp-cell)),
+    linear-gradient(90deg, var(--warp-grid-color) 0 1px, transparent 1px var(--warp-cell));
+  background-size: var(--warp-cell) var(--warp-cell);
+  background-position: 50% -0.5px, 50% 50%;
 }
-.glow--one {
-  width: 50vw;
-  height: 50vw;
-  background: var(--haus-indigo);
-  top: -14vw;
-  left: -16vw;
-  animation: drift-one 34s ease-in-out infinite;
+.warp__wall--top {
+  top: 0;
+  left: 0;
+  width: 100cqi;
+  height: 100cqmax;
+  transform-origin: 50% 0%;
+  transform: rotateX(-90deg);
 }
-.glow--two {
-  width: 40vw;
-  height: 40vw;
-  background: var(--haus-indigo);
-  bottom: -12vw;
-  right: -14vw;
-  animation: drift-two 29s ease-in-out infinite;
+.warp__wall--bottom {
+  top: 100%;
+  left: 0;
+  width: 100cqi;
+  height: 100cqmax;
+  transform-origin: 50% 0%;
+  transform: rotateX(-90deg);
 }
-@keyframes drift-one {
-  0%   { transform: translate(0, 0) scale(1); }
-  25%  { transform: translate(22vw, 30vh) scale(1.15); }
-  50%  { transform: translate(10vw, 55vh) scale(0.92); }
-  75%  { transform: translate(28vw, 15vh) scale(1.08); }
-  100% { transform: translate(0, 0) scale(1); }
+.warp__wall--left {
+  top: 0;
+  left: 0;
+  width: 100cqh;
+  height: 100cqmax;
+  transform-origin: 0% 0%;
+  transform: rotate(90deg) rotateX(-90deg);
 }
-@keyframes drift-two {
-  0%   { transform: translate(0, 0) scale(1); }
-  30%  { transform: translate(-20vw, -25vh) scale(1.1); }
-  60%  { transform: translate(-8vw, -50vh) scale(0.95); }
-  100% { transform: translate(0, 0) scale(1); }
+.warp__wall--right {
+  top: 0;
+  right: 0;
+  width: 100cqh;
+  height: 100cqmax;
+  transform-origin: 100% 0%;
+  transform: rotate(-90deg) rotateX(-90deg);
+}
+
+.warp__beam {
+  position: absolute;
+  top: 0;
+  left: var(--x);
+  width: var(--width);
+  aspect-ratio: 1 / var(--ar);
+  background: var(--beam-gradient);
+  transform: translateX(-50%) translateY(100cqmax);
+  animation: warp-beam-rise var(--duration) linear infinite;
+  animation-delay: var(--delay);
+}
+@keyframes warp-beam-rise {
+  from { transform: translateX(-50%) translateY(100cqmax); }
+  to   { transform: translateX(-50%) translateY(-100%); }
 }
 
 .brand {
