@@ -1,4 +1,6 @@
-const CLIENTS_URL = "clients.json";
+const DEFAULT_CENTER = "salcon-rasvilas";
+const CENTER = new URLSearchParams(location.search).get("center") || DEFAULT_CENTER;
+const CLIENTS_URL = `centers/${CENTER}/clients.json`;
 const RELOAD_INTERVAL_MS = 60 * 60 * 1000; // hourly refresh keeps an unattended kiosk screen healthy
 const SHUFFLE_INTERVAL_MS = 25 * 1000; // how long one card order stays on screen before reshuffling
 const FADE_MS = 700; // must match the .clients transition duration in style.css

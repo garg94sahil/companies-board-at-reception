@@ -1,17 +1,17 @@
 [
   {
     "name": "Statkraft",
-    "logo": "assets/clients/statkraft.png",
+    "logo": "centers/salcon-rasvilas/logos/statkraft.png",
     "website": "https://www.statkraft.com/"
   },
   {
     "name": "Virgo Group",
-    "logo": "assets/clients/virgolam.webp",
+    "logo": "centers/salcon-rasvilas/logos/virgolam.webp",
     "website": "https://www.virgolam.com/"
   },
   {
     "name": "Great Value Realty",
-    "logo": "assets/clients/great-value-realty.webp",
+    "logo": "centers/salcon-rasvilas/logos/great-value-realty.webp",
     "website": "https://greatvaluerealty.com/"
   }
 ]

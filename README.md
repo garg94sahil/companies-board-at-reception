@@ -1,42 +1,49 @@
-# Haus+ Reception Screen
+# Companies Board at Reception
 
-A looping, animated welcome screen for the Haus+ reception TV — shows the Haus+ brand and the logos of every current client company.
+A looping, animated "companies board" for Haus+ managed-office reception screens — shows the Haus+ brand and the logos of every current tenant company at a given center. Built as a reusable template: one codebase, one folder per center.
 
-Live at: **https://garg94sahil.github.io/haus-plus-reception-screen/**
+Delivery is via **AbleSign** (digital signage) — this repo renders each center's board to an `.mp4` video (see `tools/video/`), which then gets manually uploaded to AbleSign per screen. There is no live/auto-updating deployment.
+
+Two designs exist as branches: `main` (Option 1 — card grid, moving gradient background) and `option-2-warp-background` (Option 2 — same cards, indigo warp-tunnel background). Both work for any center.
 
 ## What it is
 
-A single static page (`index.html`), no build step, no framework. It reads `clients.json`, renders one card per client, plays a staggered entrance animation on load, and keeps a slow ambient background glow moving so the screen never looks frozen. It auto-reloads once an hour, which is standard practice for an unattended kiosk display — it recovers from any transient JS error and always picks up the latest deployed `clients.json`.
+A static page (`index.html`), no build step, no framework. It reads `?center=<slug>` from the URL (defaults to `salcon-rasvilas`), fetches that center's `centers/<slug>/clients.json`, renders one card per client with a staggered entrance animation, keeps the background in slow ambient motion, and reshuffles the card order every 25s so a long-running loop doesn't feel static.
 
 ## Running it locally
 
 ```
 python -m http.server 8080
 ```
-then open `http://localhost:8080/`.
+then open `http://localhost:8080/?center=<slug>` (e.g. `?center=salcon-rasvilas`).
 
-(A plain `file://` open won't work — the page `fetch()`s `clients.json`, which browsers block from `file://` due to CORS.)
+(A plain `file://` open won't work — the page `fetch()`s `clients.json`, which browsers block from `file://` due to CORS. For a quick double-click-able preview, see the standalone preview HTML files kept in the parent project folder.)
 
-## Adding a new client
+## Adding a client / a new center
 
-See [`workflows/add_reception_client.md`](workflows/add_reception_client.md). Short version:
+- New client at an existing center: [`workflows/add_reception_client.md`](workflows/add_reception_client.md).
+- Brand-new center: [`workflows/add_new_center.md`](workflows/add_new_center.md).
+
+Short version for a client:
 ```
-python tools/add_client_logo.py <logo-file> "<Client Name>" <website-url>
+python tools/add_client_logo.py <logo-file> "<Client Name>" <website-url> --center <center-slug>
 ```
-then commit and push — GitHub Pages redeploys automatically.
+then re-render that center's video (`tools/video/`) and re-upload to AbleSign.
 
 ## Structure
 
 ```
-index.html            the screen itself
-css/style.css          layout, Haus+ brand colors, animations
-js/app.js               renders clients.json into cards + hourly reload
-clients.json            the client list (name, logo path, website)
-assets/haus-logo/       Haus+ wordmark
-assets/fonts/           Manrope + Bricolage Grotesque (brand fonts)
-assets/clients/         per-client logos
-tools/add_client_logo.py   normalizes a new logo + updates clients.json
+index.html                      the screen itself (reads ?center= from the URL)
+css/style.css                    layout, Haus+ brand colors, animations
+js/app.js                        renders a center's clients.json into cards + reshuffle cycle + hourly reload
+assets/haus-logo/                Haus+ wordmark (shared across all centers)
+assets/fonts/                    Manrope + Bricolage Grotesque (shared brand fonts)
+centers/<slug>/clients.json      that center's client list (name, logo path, website)
+centers/<slug>/logos/            that center's client logos
+tools/add_client_logo.py         normalizes a new logo + updates a center's clients.json
+tools/video/record-loop.mjs      records the live page and exports a signage-ready .mp4
 workflows/add_reception_client.md   SOP for onboarding a new client
+workflows/add_new_center.md         SOP for onboarding a whole new center
 ```
 
 ## Brand reference
