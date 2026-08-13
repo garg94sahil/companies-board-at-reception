@@ -1,0 +1,14 @@
+{
+  "name": "reception-screen-video-export",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Records a center's reception screen and exports a signage-ready looping MP4",
+  "type": "module",
+  "scripts": {
+    "record": "node record-loop.mjs"
+  },
+  "dependencies": {
+    "ffmpeg-static": "^5.3.0",
+    "playwright-core": "^1.62.1"
+  }
+}
