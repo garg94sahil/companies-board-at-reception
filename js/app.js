@@ -21,14 +21,19 @@ function buildCards(container, clients) {
     card.className = "client-card";
     card.style.setProperty("--i", i);
 
-    // Only show the client name as text when there's no logo to show instead.
-    card.innerHTML = client.logo
+    // Only show the client name as text in the logo slot when there's no
+    // logo to show instead -- the name always appears again below regardless.
+    const logoSlot = client.logo
       ? `<div class="client-card__logo-wrap">
            <img class="client-card__logo" src="${client.logo}" alt="${client.name} logo">
          </div>`
       : `<div class="client-card__logo-wrap">
            <p class="client-card__name-fallback">${client.name}</p>
          </div>`;
+
+    card.innerHTML = `${logoSlot}
+      <p class="client-card__name">${client.name}</p>
+      ${client.cin ? `<p class="client-card__cin">CIN: ${client.cin}</p>` : ""}`;
 
     container.appendChild(card);
   });

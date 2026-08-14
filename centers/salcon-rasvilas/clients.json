@@ -2,21 +2,31 @@
   {
     "name": "Statkraft",
     "logo": "centers/salcon-rasvilas/logos/statkraft.png",
-    "website": "https://www.statkraft.com/"
+    "website": "https://www.statkraft.com/",
+    "cin": "U40101DL2010FTC204050"
   },
   {
     "name": "Virgo Group",
     "logo": "centers/salcon-rasvilas/logos/virgolam.webp",
-    "website": "https://www.virgolam.com/"
+    "website": "https://www.virgolam.com/",
+    "cin": "U20200CH1996PLC042508"
   },
   {
     "name": "Great Value Realty",
     "logo": "centers/salcon-rasvilas/logos/great-value-realty.webp",
-    "website": "https://greatvaluerealty.com/"
+    "website": "https://greatvaluerealty.com/",
+    "cin": "U70100DL2011PTC221088"
   },
   {
     "name": "Marubeni-Itochu Steel",
     "logo": "centers/salcon-rasvilas/logos/marubeni-itochu-steel.png",
-    "website": "https://www.benichu.com/en/"
+    "website": "https://www.benichu.com/en/",
+    "cin": "U27141DL2006FTC148481"
+  },
+  {
+    "name": "Endurance Capital",
+    "logo": "centers/salcon-rasvilas/logos/endurance-capital.png",
+    "website": "https://endurancecap.in/",
+    "cin": "U65999DL2021PTC381666"
   }
 ]
