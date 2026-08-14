@@ -85,22 +85,22 @@ body {
 .glow {
   position: absolute;
   border-radius: 50%;
-  filter: blur(90px);
-  opacity: 0.38;
+  filter: blur(75px);
+  opacity: 0.6;
   pointer-events: none;
   will-change: transform;
 }
 .glow--one {
-  width: 50cqw;
-  height: 50cqw;
+  width: 58cqw;
+  height: 58cqw;
   background: var(--haus-indigo);
   top: -14cqw;
   left: -16cqw;
   animation: drift-one 34s ease-in-out infinite;
 }
 .glow--two {
-  width: 40cqw;
-  height: 40cqw;
+  width: 48cqw;
+  height: 48cqw;
   background: var(--haus-indigo);
   bottom: -12cqw;
   right: -14cqw;
@@ -143,18 +143,19 @@ body {
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
   justify-items: center;
-  gap: 3cqh 3cqw;
-  width: 88cqw;
+  gap: 2.6cqh 2.6cqw;
+  width: 76cqw;
   transition: opacity 0.7s ease;
 }
 .clients.is-hidden {
   opacity: 0;
 }
 /* An odd company count leaves one card alone in the last row -- center it
-   across both columns instead of leaving it stuck in the left column. */
+   across both columns at the *same* width a normal card gets (one grid
+   column), rather than letting it stretch across the full spanned width. */
 .clients .client-card:last-child:nth-child(odd) {
   grid-column: 1 / -1;
-  width: min(100%, 460px);
+  width: calc((100% - 2.6cqw) / 2);
 }
 
 .client-card {
@@ -162,11 +163,11 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.8cqh;
+  gap: 0.7cqh;
   width: 100%;
-  padding: 3.2cqh 2.4cqw;
+  padding: 2.6cqh 2cqw;
   background: var(--haus-white);
-  border-radius: 18px;
+  border-radius: 16px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
   opacity: 0;
   transform: translateY(28px);
@@ -176,7 +177,7 @@ body {
 
 .client-card__logo-wrap {
   width: 100%;
-  height: 8cqh;
+  height: 6.6cqh;
   display: flex;
   align-items: center;
   justify-content: center;
