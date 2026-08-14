@@ -3,3 +3,4 @@ __pycache__/
 .DS_Store
 tools/video/node_modules/
 tools/video/out/
+.env

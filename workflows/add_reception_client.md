@@ -30,7 +30,12 @@
    ```
    then open `http://localhost:8080/?center=<center-slug>` in a browser. Confirm: the logo is legible against the white card, the entrance animation plays once on load, and the name matches what's on the logo (don't caption a "VIRGO GROUP" logo as "Virgolam" — pick one and keep them consistent).
 
-4. **Re-render that center's video** (see `tools/video/`) and hand the new `.mp4` off to be manually re-uploaded to AbleSign — there's no live/auto-updating deployment anymore, the video is a static export that needs regenerating whenever a center's roster changes.
+4. **Re-render and upload as content**: from `tools/video/`, run
+   ```
+   node record-loop.mjs --center <center-slug>
+   node upload-to-ablesign.mjs --center <center-slug>
+   ```
+   The first command re-renders the video; the second uploads it into AbleSign's media library (needs `ABLESIGN_API_KEY` in `.env` — see `.env.example`). It does NOT assign the video to a screen — that's a manual step done in the AbleSign CMS.
 
 5. **Commit and push.**
 

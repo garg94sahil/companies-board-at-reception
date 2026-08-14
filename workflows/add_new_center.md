@@ -1,6 +1,6 @@
 # Workflow: Onboard a new center
 
-**Objective:** Stand up the reception-screen creative for an entirely new Haus+ center, from a list of its tenant companies to a finished video ready to hand off for AbleSign.
+**Objective:** Stand up the reception-screen creative for an entirely new Haus+ center, from a list of its tenant companies to a finished video uploaded to AbleSign.
 
 ## Inputs needed
 - The center's name and a URL-safe slug for it (e.g. "Salcon Rasvilas" → `salcon-rasvilas`).
@@ -23,7 +23,11 @@
 
 5. **Commit and push** the new `centers/<new-center-slug>/` folder.
 
-6. **Hand off the rendered `.mp4`** — that's the file that gets manually uploaded into AbleSign for that center's screen. Re-run step 4 any time that center's roster changes; there is no live/auto-updating deployment.
+6. **Upload the video as content**: from `tools/video/`, run
+   ```
+   node upload-to-ablesign.mjs --center <new-center-slug>
+   ```
+   This uploads the rendered video into AbleSign's media library. Assigning it to the center's screen, and creating that screen in AbleSign if it doesn't exist yet, is a manual step done in the AbleSign CMS. Re-run step 4 + this step any time the center's roster changes.
 
 ## Notes
 - Fonts and the Haus+ logo are shared brand assets at the repo root (`assets/`) — never duplicate these per center.
