@@ -1,10 +1,12 @@
 # Companies Board at Reception
 
-A looping, animated "companies board" for Haus+ managed-office reception screens — shows the Haus+ brand and the logos of every current tenant company at a given center. Built as a reusable template: one codebase, one folder per center.
+A looping, animated "companies board" for Haus+ managed-office reception screens — shows the Haus+ brand and the logos of every current tenant company at a given center.
 
-Delivery is via **GitHub Pages** — each reception screen's browser points directly at the live page: `https://garg94sahil.github.io/companies-board-at-reception/?center=<slug>`. There's no export or upload step; pushing a change to `main` updates every screen once Pages rebuilds (usually under a minute).
+**This repo hosts Salcon Rasvilas**, its original center. As of the Okhla Phase III rollout, every *new* Haus+ center gets its own dedicated repo + GitHub Pages deployment (e.g. `okhla-phase-iii-reception`) rather than a folder added here — see `workflows/add_new_center.md` for the current onboarding steps and rationale. This repo's `centers/<slug>/` structure (below) reflects what's already live here, not the pattern for what's next.
 
-Two designs exist as branches: `main` (Option 1 — card grid, moving gradient background) and `option-2-warp-background` (Option 2 — same cards, indigo warp-tunnel background). GitHub Pages only serves one branch live at a time, so all centers in *this* repo get whatever design is on `main`. A center needing Option 2 needs its own separate repo + Pages deployment.
+Delivery is via **GitHub Pages** — the reception screen's browser points directly at the live page: `https://garg94sahil.github.io/companies-board-at-reception/?center=salcon-rasvilas`. There's no export or upload step; pushing a change to `main` updates the screen once Pages rebuilds (usually under a minute).
+
+Two designs exist as branches: `main` (Option 1 — card grid, moving gradient background) and `option-2-warp-background` (Option 2 — same cards, indigo warp-tunnel background). GitHub Pages only serves one branch live at a time.
 
 ## What it is
 
