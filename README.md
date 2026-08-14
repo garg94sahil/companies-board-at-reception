@@ -23,6 +23,7 @@ then open `http://localhost:8080/?center=<slug>` (e.g. `?center=salcon-rasvilas`
 
 - New client at an existing center: [`workflows/add_reception_client.md`](workflows/add_reception_client.md).
 - Brand-new center: [`workflows/add_new_center.md`](workflows/add_new_center.md).
+- Syncing a center's roster from a Google Sheet the account owner maintains: [`workflows/sync_roster_from_sheet.md`](workflows/sync_roster_from_sheet.md).
 
 Short version for a client:
 ```
@@ -41,8 +42,11 @@ assets/fonts/                    Manrope + Bricolage Grotesque (shared brand fon
 centers/<slug>/clients.json      that center's client list (name, logo path, website)
 centers/<slug>/logos/            that center's client logos
 tools/add_client_logo.py         normalizes a new logo + updates a center's clients.json
+tools/sync_roster_from_sheet.py  syncs clients.json from a center's roster Google Sheet (plain CSV export, no auth)
+requirements.txt                 Python deps (Pillow)
 workflows/add_reception_client.md   SOP for onboarding a new client
 workflows/add_new_center.md         SOP for onboarding a whole new center
+workflows/sync_roster_from_sheet.md SOP for syncing a roster from Google Sheets
 ```
 
 ## Brand reference
