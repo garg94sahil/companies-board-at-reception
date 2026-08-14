@@ -30,14 +30,7 @@
    ```
    then open `http://localhost:8080/?center=<center-slug>` in a browser. Confirm: the logo is legible against the white card, the entrance animation plays once on load, and the name matches what's on the logo (don't caption a "VIRGO GROUP" logo as "Virgolam" — pick one and keep them consistent).
 
-4. **Re-render and upload as content**: from `tools/video/`, run
-   ```
-   node record-loop.mjs --center <center-slug>
-   node upload-to-ablesign.mjs --center <center-slug>
-   ```
-   The first command re-renders the video; the second uploads it into AbleSign's media library (needs `ABLESIGN_API_KEY` in `.env` — see `.env.example`). It does NOT assign the video to a screen — that's a manual step done in the AbleSign CMS.
-
-5. **Commit and push.**
+4. **Commit and push.** The reception screen loads the live GitHub Pages URL directly (`https://garg94sahil.github.io/companies-board-at-reception/?center=<center-slug>`), so once GitHub Pages finishes rebuilding (usually under a minute), the new client just appears — no export or upload step.
 
 ## Notes / lessons learned
 - `add_client_logo.py` pads proportionally to the logo's own aspect ratio, not a fixed square — a first version used a square canvas and it shrank wide wordmarks down to a sliver in a mostly-empty box. If logos ever look tiny/off-center on the card again, check `MAX_DIM`/`MARGIN_RATIO` in that script first.

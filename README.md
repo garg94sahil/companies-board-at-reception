@@ -2,9 +2,9 @@
 
 A looping, animated "companies board" for Haus+ managed-office reception screens — shows the Haus+ brand and the logos of every current tenant company at a given center. Built as a reusable template: one codebase, one folder per center.
 
-Delivery is via **AbleSign** (digital signage) — this repo renders each center's board to an `.mp4` video and uploads it straight to AbleSign's media library via their API (see `tools/video/`). Assigning the uploaded video to a screen is a manual step done in the AbleSign CMS.
+Delivery is via **GitHub Pages** — each reception screen's browser points directly at the live page: `https://garg94sahil.github.io/companies-board-at-reception/?center=<slug>`. There's no export or upload step; pushing a change to `main` updates every screen once Pages rebuilds (usually under a minute).
 
-Two designs exist as branches: `main` (Option 1 — card grid, moving gradient background) and `option-2-warp-background` (Option 2 — same cards, indigo warp-tunnel background). Both work for any center.
+Two designs exist as branches: `main` (Option 1 — card grid, moving gradient background) and `option-2-warp-background` (Option 2 — same cards, indigo warp-tunnel background). GitHub Pages only serves one branch live at a time, so all centers in *this* repo get whatever design is on `main`. A center needing Option 2 needs its own separate repo + Pages deployment.
 
 ## What it is
 
@@ -28,12 +28,7 @@ Short version for a client:
 ```
 python tools/add_client_logo.py <logo-file> "<Client Name>" <website-url> --center <center-slug>
 ```
-then, from `tools/video/`:
-```
-node record-loop.mjs --center <center-slug>
-node upload-to-ablesign.mjs --center <center-slug>
-```
-then assign the uploaded video to the center's screen yourself in the AbleSign CMS.
+then commit and push — the live screen picks it up automatically.
 
 ## Structure
 
@@ -46,9 +41,6 @@ assets/fonts/                    Manrope + Bricolage Grotesque (shared brand fon
 centers/<slug>/clients.json      that center's client list (name, logo path, website)
 centers/<slug>/logos/            that center's client logos
 tools/add_client_logo.py         normalizes a new logo + updates a center's clients.json
-tools/video/record-loop.mjs      records the live page and exports a signage-ready .mp4
-tools/video/upload-to-ablesign.mjs  uploads a rendered video into AbleSign's media library
-.env.example                     template for .env (needs ABLESIGN_API_KEY)
 workflows/add_reception_client.md   SOP for onboarding a new client
 workflows/add_new_center.md         SOP for onboarding a whole new center
 ```
