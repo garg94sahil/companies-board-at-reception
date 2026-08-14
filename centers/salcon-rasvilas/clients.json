@@ -13,5 +13,10 @@
     "name": "Great Value Realty",
     "logo": "centers/salcon-rasvilas/logos/great-value-realty.webp",
     "website": "https://greatvaluerealty.com/"
+  },
+  {
+    "name": "Marubeni-Itochu Steel",
+    "logo": "centers/salcon-rasvilas/logos/marubeni-itochu-steel.png",
+    "website": "https://www.benichu.com/en/"
   }
 ]

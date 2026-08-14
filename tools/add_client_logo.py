@@ -42,13 +42,19 @@ def slugify(name: str) -> str:
 def normalize_logo(src_path: Path, dest_path: Path) -> None:
     """Downscale to MAX_DIM and pad with a proportional margin, preserving
     the logo's native aspect ratio (a square canvas would shrink wide
-    wordmarks down to a sliver inside a mostly-empty box)."""
+    wordmarks down to a sliver inside a mostly-empty box).
+
+    Margin is computed per-axis from that axis's own size, not from the
+    longer side -- a margin based on the longer side shrinks very wide/flat
+    logos badly, since the (small) margin ratio of a large width dwarfs a
+    short height, leaving mostly empty vertical padding around the artwork."""
     img = Image.open(src_path).convert("RGBA")
     img.thumbnail((MAX_DIM, MAX_DIM), Image.LANCZOS)
 
-    margin = int(max(img.width, img.height) * MARGIN_RATIO)
-    canvas = Image.new("RGBA", (img.width + 2 * margin, img.height + 2 * margin), (0, 0, 0, 0))
-    canvas.paste(img, (margin, margin), img)
+    margin_x = int(img.width * MARGIN_RATIO)
+    margin_y = int(img.height * MARGIN_RATIO)
+    canvas = Image.new("RGBA", (img.width + 2 * margin_x, img.height + 2 * margin_y), (0, 0, 0, 0))
+    canvas.paste(img, (margin_x, margin_y), img)
 
     dest_path.parent.mkdir(parents=True, exist_ok=True)
     canvas.save(dest_path, "PNG", optimize=True)
